@@ -3,7 +3,7 @@ name: Build Windows EXE
 on:
   push:
     branches: [ main, master ]
-  workflow_dispatch:  # Manuel olarak da çalıştırabilirsin
+  workflow_dispatch:
 
 jobs:
   build:
@@ -33,4 +33,3 @@ jobs:
         name: ExcelNameMatcher-Windows
         path: dist/ExcelNameMatcher.exe
         retention-days: 90
-
