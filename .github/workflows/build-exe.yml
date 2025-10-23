@@ -12,25 +12,30 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    
+      
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-    
+        
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install pandas openpyxl pyinstaller
     
-    - name: Install UPX
+    - name: Build EXE with PyInstaller (Without UPX)
+      # ⚠️ The --upx-dir argument has been removed.
       run: |
-        choco install upx -y
-    
-    - name: Build EXE with PyInstaller
-      run: |
-        pyinstaller --onefile --windowed --name "ExcelNameMatcher" --exclude-module matplotlib --exclude-module scipy --exclude-module IPython --exclude-module notebook --exclude-module pytest --exclude-module PIL.ImageQt --exclude-module PyQt5 --upx-dir="C:\ProgramData\chocolatey\bin" --strip excel_matcher_gui.py
-    
+        pyinstaller --onefile --windowed --name "ExcelNameMatcher" \
+          --exclude-module matplotlib \
+          --exclude-module scipy \
+          --exclude-module IPython \
+          --exclude-module notebook \
+          --exclude-module pytest \
+          --exclude-module PIL.ImageQt \
+          --exclude-module PyQt5 \
+          --strip excel_matcher_gui.py
+          
     - name: Upload EXE as artifact
       uses: actions/upload-artifact@v4
       with:
